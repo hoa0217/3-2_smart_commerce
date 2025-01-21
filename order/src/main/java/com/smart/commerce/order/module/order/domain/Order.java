@@ -6,22 +6,26 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class Order extends AbstractAggregateRoot<Order> {
+
     Long id;
 
     OrderStatus orderStatus;
 
     UUID orderNumber;
 
+
     public OrderToPaymentEvent pay(ApplicationEventPublisher eventPublisher) {
         OrderToPaymentEvent event = new OrderToPaymentEvent(id, OrderStatus.PENDING_PAYMENT, orderNumber);
-        eventPublisher.publishEvent(event);
+        registerEvent(event);
+//        eventPublisher.publishEvent(event);
         return event;
     }
 }

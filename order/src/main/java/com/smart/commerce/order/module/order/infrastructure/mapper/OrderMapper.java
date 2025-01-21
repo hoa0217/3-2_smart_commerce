@@ -5,7 +5,6 @@ import com.smart.commerce.order.module.order.infrastructure.repository.entity.Or
 
 public class OrderMapper {
 
-
     public static Order toDomain(OrderEntity orderEntity) {
         return new Order(orderEntity.getId(), orderEntity.getOrderStatus(), orderEntity.getOrderNumber());
     }
