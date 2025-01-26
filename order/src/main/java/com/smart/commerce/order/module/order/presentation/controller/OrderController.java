@@ -17,8 +17,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public String getOrder() {
-        return "order";
+    public Order getOrder(@RequestParam Long orderId) {
+        return orderUsecase.getOrderById(orderId);
     }
 
     /**
@@ -28,7 +28,7 @@ public class OrderController {
      * @return a string indicating the outcome of the order process
      */
     @PostMapping
-    public OrderResponse order(@RequestBody OrderRequest orderRequest) {
+    public OrderResponse doOrder(@RequestBody OrderRequest orderRequest) {
         // Process the order request using the order service
 
         Order order = orderUsecase.orderToPayment(orderRequest);

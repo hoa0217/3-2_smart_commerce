@@ -21,6 +21,10 @@ public class OrderUsecase {
         this.orderRepository = orderRepository;
     }
 
+    public Order getOrderById(Long orderId) {
+        return orderRepository.getOrderById(orderId);
+    }
+
     @Transactional
     public Order orderToPayment(OrderRequest orderRequest) {
         ShoppingCart shoppingCart = shoppingCartPort.getItems(orderRequest.userId());
@@ -28,4 +32,6 @@ public class OrderUsecase {
         order.pay(eventPublisher);
         return order;
     }
+
+
 }

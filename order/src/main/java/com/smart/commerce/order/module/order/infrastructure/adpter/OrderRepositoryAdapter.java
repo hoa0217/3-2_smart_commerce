@@ -1,5 +1,6 @@
 package com.smart.commerce.order.module.order.infrastructure.adpter;
 
+import com.smart.commerce.order.global.support.exception.OrderNotExistException;
 import com.smart.commerce.order.module.cart.application.dto.ShoppingCart;
 import com.smart.commerce.order.module.order.application.dto.OrderRequest;
 import com.smart.commerce.order.module.order.domain.Order;
@@ -18,6 +19,13 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
     public OrderRepositoryAdapter(OrderJpaRepository orderJpaRepository) {
         this.orderJpaRepository = orderJpaRepository;
+    }
+
+    @Override
+    public Order getOrderById(Long orderId) {
+        return orderJpaRepository.findById(orderId)
+                .map(OrderMapper::toDomain)
+                .orElseThrow(OrderNotExistException::new);
     }
 
     @Override
