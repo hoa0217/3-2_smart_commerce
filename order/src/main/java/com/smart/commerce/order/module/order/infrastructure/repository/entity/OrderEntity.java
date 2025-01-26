@@ -24,8 +24,17 @@ public class OrderEntity {
     @Column(name = "store_id")
     private Long storeId;
 
-    @Column(name = "delivery_id")
-    private Long deliveryId;
+    @Column(name = "total_price")
+    private Long totalPrice;
+
+    @Column(name = "order_type")
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
+
+//    TODO 배달 정보 연동
+//    @JoinColumn(name = "order_delivery_id")
+//    @OneToOne(optional = true)
+//    private OrderDeliveryEntity orderDeliveryEntity;
 
     @Column(name = "store_price")
     private Long storePrice;
@@ -49,10 +58,5 @@ public class OrderEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-
-    public static OrderEntity create(Long userId, Long storeId, UUID orderNumber) {
-        return new OrderEntity(null, userId, storeId, OrderStatus.PENDING_PAYMENT, orderNumber, LocalDateTime.now(), LocalDateTime.now());
-    }
 
 }
